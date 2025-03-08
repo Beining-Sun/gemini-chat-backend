@@ -29,8 +29,7 @@ app.post("/gemini", async (req, res) => {
 
     try {
         const result = await model.generateContent(`${roleDescription}${message}`);
-        const textResponse = result?.candidates?.[0]?.content?.parts?.[0]?.text || "Error: No response";
-        res.json({ response: textResponse });
+        res.json({ response: result.response.text() });
     } catch (error) {
         console.error("Gemini API Error:", error);
         res.status(500).json({ error: "API request failed" });
